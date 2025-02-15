@@ -1,0 +1,33 @@
+=== PromoCart Popup ===
+Contributors: your-name
+Tags: WooCommerce, popup, cart targeting, discount, coupon
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.2
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+== Description ==
+Displays a targeted popup with a 15% discount coupon based on cart conditions.
+
+== Installation ==
+
+Upload promocart-popup to /wp-content/plugins/.
+
+Activate through 'Plugins' in WordPress.
+
+Configure popup rules in settings.
+
+== Features ==
+
+Show popup based on cart conditions.
+
+Apply a 15% discount coupon.
+
+Responsive design with CSS3 animations.
+
+== Changelog ==
+= 1.0.0 =
+
+Initial release.
+

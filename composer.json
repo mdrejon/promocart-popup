@@ -1,0 +1,18 @@
+{
+    "name": "sydur/promocart-popup",
+    "authors": [
+        {
+            "name": "Sydur Rahman",
+            "email": "sydurrahmant1@gmail.com"
+        }
+    ],
+    "type": "n",
+    "license": "n",
+    "autoload": {
+        "psr-4": {
+            "WTD_PROMOCART\\Admin\\": "Admin/", 
+            "WTD_PROMOCART\\App\\": "App/"
+           
+        }
+    }
+}
