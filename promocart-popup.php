@@ -78,8 +78,11 @@ class WTD_promocart_Popup {
 		if ( is_admin() ) {
 			Admin::init();
 		}
-
-		App::init();
+        // Checked WooCommerce plugin is active.
+        if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+            App::init();
+        }
+		
 	}
 
 	/**
