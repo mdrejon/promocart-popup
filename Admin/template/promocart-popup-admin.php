@@ -1,13 +1,13 @@
-<?php
+<?php 
 /**
- * Admin Settings Template
+ * Admin Settings Template.
  */
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// Get Option Value
+// Get Option Value.
 $settings      = ! empty( get_option( 'wtd_promocart_popup_settings' ) ) ? get_option( 'wtd_promocart_popup_settings' ) : array();
 $enable_status = isset( $settings['enable_status'] ) ? $settings['enable_status'] : 'off';
 $cart_type     = isset( $settings['cart_type'] ) ? $settings['cart_type'] : '';
@@ -16,9 +16,9 @@ $total_amount  = isset( $settings['total_amount'] ) ? $settings['total_amount'] 
 $total_items   = isset( $settings['total_items'] ) ? $settings['total_items'] : '';
 $products      = isset( $settings['products'] ) ? $settings['products'] : array();
 
-// Ensure WooCommerce is active
+// Ensure WooCommerce is active.
 if ( class_exists( 'WooCommerce' ) ) {
-	// get all products with
+	// get all products with.
 	$args           = array(
 		'post_type'      => 'product',
 		'posts_per_page' => -1,

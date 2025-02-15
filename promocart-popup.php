@@ -95,14 +95,14 @@ class WTD_promocart_Popup {
 			if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) && ! file_exists( WP_PLUGIN_DIR . '/woocommerce/woocommerce.php' ) ) {
 				?>
 				<div class="notice notice-error is-dismissible">
-					<p><?php echo esc_html( __( 'Woocommerce requires for promocart popup. Please install and activate Woocommerce.', 'promocart-popup' ) ); ?></p>
+					<p><?php echo esc_html( __( 'Woocommerce requires for PromoCart Popup. Please install and activate Woocommerce.', 'promocart-popup' ) ); ?></p>
 					<a class="install-now button tf-install" href=<?php echo esc_url( admin_url( '/plugin-install.php?s=slug:woocommerce&tab=search&type=term' ) ); ?> data-plugin-slug="woocommerce"><?php esc_attr_e( 'Install Now', 'promocart-popup' ); ?></a> <br><br>
 				</div>
 				<?php
 			} elseif ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/woocommerce.php' ) ) {
 				?>
 				<div class="notice notice-error is-dismissible">
-					<p><?php echo esc_html( __( 'Woocommerce requires for promocart popup. Please install and activate Woocommerce.', 'promocart-popup' ) ); ?></p>
+					<p><?php echo esc_html( __( 'Woocommerce requires for PromoCart Popup. Please install and activate Woocommerce.', 'promocart-popup' ) ); ?></p>
 					<a href="<?php echo esc_url( wp_nonce_url( get_admin_url() . 'plugins.php?action=activate&plugin=woocommerce/woocommerce.php', 'activate-plugin_woocommerce/woocommerce.php' ) ); ?>" class="button activate-now button-primary"><?php esc_attr_e( 'Activate', 'promocart-popup' ); ?></a> <br><br>
 				</div>
 				<?php

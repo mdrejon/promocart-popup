@@ -39,6 +39,7 @@ class App {
 
 		// apply discount action.
 		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'wtd_promocart_apply_discount_callback' ), 10, 1 );
+ 
 	}
 
 	/**
@@ -137,7 +138,7 @@ class App {
 
 			$response['success'] = true;
 			// go to checkout page.
-			$response['url']     = wc()->cart->get_checkout_url();
+			$response['url']     = wc_get_checkout_url();
 			$response['message'] = __( 'Coupon applied successfully.', 'promocart-popup' );
 			wp_send_json( $response );
 			return;
@@ -157,16 +158,37 @@ class App {
 			return;
 		}
 
-		if ( WC()->session->get( 'wtd_promocart_discount_applied' ) ) {
-			$discount_percentage = 15;
-			$cart_total          = $cart->subtotal;
-			$discount_amount     = ( $cart_total * $discount_percentage ) / 100;
-
-			if ( $discount_amount > 0 ) {
-				$cart->add_fee( '15% Discount', -$discount_amount, false );
-			}
-		}
+        if(true === self::check_popup_status()){
+            if ( WC()->session->get( 'wtd_promocart_discount_applied' ) ) {
+                $discount_percentage = 15;
+                $cart_total          = $cart->subtotal;
+                $discount_amount     = ( $cart_total * $discount_percentage ) / 100;
+    
+                if ( $discount_amount > 0 ) {
+                    $cart->add_fee( '15% Discount', -$discount_amount, false );
+                }
+            }
+        }else{
+            // already added discount then remove the discount.
+            $cart_total = WC()->cart->subtotal;
+            $cart_items = WC()->cart->get_cart();
+            foreach ( $cart_items as $cart_item_key => $cart_item ) {
+                if ( '15% Discount' === $cart_item['data']->get_name() ) {
+                    $cart->remove_cart_item( $cart_item_key );
+                    // if WC()->session->set( 'wtd_promocart_discount_applied', true ); then return false
+                    if(WC()->session->set( 'wtd_promocart_discount_applied', true )){
+                        WC()->session->set( 'wtd_promocart_discount_applied', false );
+                    }
+                    break;
+                }
+            }
+        }
+		
 	}
+
+ 
+
+// initiate the plugin.
 
 	/**
 	 * Check discount popup visibility.
@@ -174,9 +196,7 @@ class App {
 	public static function check_popup_status() {
 
 		// if already applied discount return false.
-		if ( WC()->session->get( 'wtd_promocart_discount_applied' ) ) {
-			return false;
-		}
+		
 
 		$settings      = ! empty( get_option( 'wtd_promocart_popup_settings' ) ) ? get_option( 'wtd_promocart_popup_settings' ) : array();
 		$enable_status = isset( $settings['enable_status'] ) ? $settings['enable_status'] : 'off';
@@ -236,7 +256,10 @@ class App {
 			wp_send_json( $response );
 			return;
 		}
-		if ( true === self::check_popup_status() ) {
+        if ( WC()->session->get( 'wtd_promocart_discount_applied' ) ) { 
+			$response['success'] = false;
+			$response['message'] = 'Popup is not visible.';
+		}elseif ( true === self::check_popup_status() ) {
 			$response['success'] = true;
 			$response['message'] = 'Popup is visible.';
 		} else {
