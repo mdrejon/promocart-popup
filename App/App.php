@@ -182,9 +182,7 @@ class App {
 		
 	}
 
- 
-
-// initiate the plugin.
+  
 
 	/**
 	 * Check discount popup visibility.
@@ -195,11 +193,11 @@ class App {
 		
 
 		$settings      = ! empty( get_option( 'wtd_promocart_popup_settings' ) ) ? get_option( 'wtd_promocart_popup_settings' ) : array();
-		$enable_status = isset( $settings['enable_status'] ) ? $settings['enable_status'] : 'off';
-		$cart_type     = isset( $settings['cart_type'] ) ? $settings['cart_type'] : '';
-		$condition     = isset( $settings['condition'] ) ? $settings['condition'] : '';
-		$total_amount  = isset( $settings['total_amount'] ) ? $settings['total_amount'] : '';
-		$total_items   = isset( $settings['total_items'] ) ? $settings['total_items'] : '';
+		$enable_status = isset( $settings['enable_status'] ) ? esc_html($settings['enable_status']) : 'off';
+		$cart_type     = isset( $settings['cart_type'] ) ? esc_html($settings['cart_type']) : '';
+		$condition     = isset( $settings['condition'] ) ? esc_html($settings['condition']) : '';
+		$total_amount  = isset( $settings['total_amount'] ) ? esc_html($settings['total_amount']) : '';
+		$total_items   = isset( $settings['total_items'] ) ? esc_html($settings['total_items']) : '';
 		$products      = isset( $settings['products'] ) ? $settings['products'] : array();
 
 		// get all cart product ids  as incrimental  using array search.
