@@ -127,9 +127,7 @@ class App {
 			return;
 
 		}
-
-		WC()->session->set( 'wtd_promocart_discount_applied', false );
-
+  
 		if ( ! WC()->session->get( 'wtd_promocart_discount_applied' ) ) {
 			WC()->session->set( 'wtd_promocart_discount_applied', true );
 
@@ -169,16 +167,14 @@ class App {
                 }
             }
         }else{
+            
+            WC()->session->__unset( 'wtd_promocart_discount_applied');
             // already added discount then remove the discount.
             $cart_total = WC()->cart->subtotal;
             $cart_items = WC()->cart->get_cart();
             foreach ( $cart_items as $cart_item_key => $cart_item ) {
                 if ( '15% Discount' === $cart_item['data']->get_name() ) {
-                    $cart->remove_cart_item( $cart_item_key );
-                    // if WC()->session->set( 'wtd_promocart_discount_applied', true ); then return false
-                    if(WC()->session->set( 'wtd_promocart_discount_applied', true )){
-                        WC()->session->set( 'wtd_promocart_discount_applied', false );
-                    }
+                    $cart->remove_cart_item( $cart_item_key ); 
                     break;
                 }
             }
@@ -255,8 +251,8 @@ class App {
 			$response['message'] = __( 'Invalid nonce', 'promocart-popup' );
 			wp_send_json( $response );
 			return;
-		}
-        if ( WC()->session->get( 'wtd_promocart_discount_applied' ) ) { 
+		} 
+        if ( WC()->session->get( 'wtd_promocart_discount_applied' ) == true ) { 
 			$response['success'] = false;
 			$response['message'] = 'Popup is not visible.';
 		}elseif ( true === self::check_popup_status() ) {
