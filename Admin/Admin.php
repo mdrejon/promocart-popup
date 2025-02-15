@@ -68,8 +68,8 @@ class Admin {
 	 * */
 	public function add_admin_menu() {
 		add_menu_page(
-			__( 'PromoCart popup', 'promocart-popup' ),  // Page title.
-			__( 'PromoCart popup', 'promocart-popup' ),  // Menu title.
+			__( 'PromoCart Popup', 'promocart-popup' ),  // Page title.
+			__( 'PromoCart Popup', 'promocart-popup' ),  // Menu title.
 			'manage_options',                           // Capability.
 			'wtd-promocart-popup',                        // Menu slug.
 			array( $this, 'render_promocart_popup_admin_page' ), // Callback function.
@@ -93,7 +93,10 @@ class Admin {
 		wp_enqueue_script( 'wtd-select-2-script' );
 
 		// render the admin page template.
-		require_once WTD_PROMOCART_POPUP_PATH . '/Admin/template/promocart-popup-admin.php';
+        if ( file_exists( WTD_PROMOCART_POPUP_PATH . '/Admin/template/promocart-popup-admin.php' ) ) {
+			require_once WTD_PROMOCART_POPUP_PATH . '/Admin/template/promocart-popup-admin.php';
+		}
+		
 	}
 
 
@@ -147,8 +150,7 @@ class Admin {
 		// return success message.
 		wp_send_json( $response );
 		wp_die();
-	}
-
+	} 
 
 	/**
 	 *  Initialize.

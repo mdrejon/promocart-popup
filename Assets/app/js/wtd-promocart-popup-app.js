@@ -95,7 +95,13 @@
         //  check for popup after product add to cart
         $(document).on('added_to_cart', function (event, fragments, cart_hash) {
             showPopup();
-        }); 
+        });
+        
+        // Block theme
+        // $(document).on('updated_cart_totals', function() {
+        //     showPopup();
+        // });
+         
  
 	}) 
 

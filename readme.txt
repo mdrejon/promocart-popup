@@ -26,6 +26,14 @@ Apply a 15% discount coupon.
 
 Responsive design with CSS3 animations.
 
+
+== Installation ==
+
+1. Download and unzip the plugin. Upload the unzipped folder to the wp-contents/plugins folder of your WordPress installation.
+2. Active the plugin from the WordPress Plugins administration page OR, Go to the WordPress admin panel, click 'Plugins' -> 'Add new'. In the search input box, type 'PromoCart Popup'.
+3. Install and activate the plugin.
+6. Go to Plugin Settings (Dashboard -> PromoCart Popup).
+
 == Changelog ==
 = 1.0.0 =
 

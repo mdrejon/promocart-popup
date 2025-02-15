@@ -1,6 +1,6 @@
 <?php
 /**
- * Popu Template
+ * Popup Template
  */
 
 
@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
 		</span>
 			<div class="wtd-promocart-popup-promp-icon"> 
-				<img src="<?php echo esc_url( WTD_promocart_POPUP_URL . 'Assets/app/images/discount-image.png' ); ?>" alt="">
+				<img src="<?php echo esc_url( WTD_PROMOCART_POPUP_URL . 'Assets/app/images/discount-image.png' ); ?>" alt="">
 			</div>
 			<div class="wtd-promocart-popup-content">
 				<h2> <span><?php echo esc_html( __( 'Get 15%', 'promocart-popup' ) ); ?></span> <br> <?php echo esc_html( __( 'coupon now', 'promocart-popup' ) ); ?></h2>

@@ -71,28 +71,21 @@ class WTD_promocart_Popup {
 			add_action( 'admin_notices', array( $this, 'wtd_promocart_popup_notice' ) );
 		}
 
-		// Load Text Domain.
-		add_action( 'init', array( $this, 'wtd_promocart_popup_textdomain' ) );
+		// Load Text Domain. 
+        load_plugin_textdomain('promocart-popup', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
 		// if is admin panel.
 		if ( is_admin() ) {
 			Admin::init();
 		}
+        
         // Checked WooCommerce plugin is active.
         if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
             App::init();
         }
 		
 	}
-
-	/**
-	 *  Load Text Domain.
-	 */
-	public function wtd_promocart_popup_textdomain() {
-
-		// Load Text Domain.
-		load_plugin_textdomain( 'promocart-popup', false, WTD_PROMOCART_POPUP_PATH . 'languages' );
-	}
+ 
 
 	/**
 	 *  popup notice when WooCommerce is not active
@@ -141,15 +134,7 @@ class WTD_promocart_Popup {
 		delete_option( 'wtd_promocart_popup_activated' );  // delete the activation status.
 	}
 
-	/**
-	 *  Get the instance of the class.
-	 *
-	 * @since 1.0.0
-	 * *
-	 * */
-	public static function get_instance() {
-		return self::$instance;
-	}
+ 
 
 
 	/**
