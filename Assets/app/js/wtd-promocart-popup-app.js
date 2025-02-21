@@ -9,6 +9,28 @@
         //  close popup
         $('.wtd-promocart-popup-inner .close').click(function () {  
             $('.wtd-promocart-popup').removeClass('show');
+            // add data nonce and action there has no from data
+            var data = {
+                nonce: wtd_promocart_popup_script.nonce, 
+                action: 'wtd_promocart_close_popup', 
+            };
+            $.ajax({
+                url: wtd_promocart_popup_script.ajaxurl, 
+                type: 'POST',
+                data: data, 
+                success: function (response) {
+                    if(response.success){  
+                        // remove full popup
+                        $('.wtd-promocart-popup').remove();
+
+                    }else{   
+                        console.log(response.message);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }); 
 
         // click apply button
@@ -58,52 +80,46 @@
 
         }); 
 
-        // function for check and show popup
-        function showPopup() {
-            
-            // add data nonce and action there has no from data
-            var data = {
-                nonce: wtd_promocart_popup_script.nonce, 
-                action: 'wtd_promocart_check_popup_status', 
-            };
-
-
-            $.ajax({
-                url: wtd_promocart_popup_script.ajaxurl, 
-                type: 'POST',
-                data: data, 
-                success: function (response) {
-                    if(response.success == true){  
-                        // set time out 2 seconds and show popup
-                        setTimeout(function () { 
-                            $('.wtd-promocart-popup').addClass('show'); 
-                        }, 2000);
-
-                    }else{  
-                        // alert(response.message);
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-
-        // Show Popup  document ready
-        showPopup();
-
-        //  check for popup after product add to cart
-        $(document).on('added_to_cart', function (event, fragments, cart_hash) {
-            showPopup();
-        });
-        
-        // Block theme
-        // $(document).on('updated_cart_totals', function() {
-        //     showPopup();
-        // });
-         
+       
  
 	}) 
+
+    // function for check and show popup
+    function showPopup() {
+            
+        // add data nonce and action there has no from data
+        var data = {
+            nonce: wtd_promocart_popup_script.nonce, 
+            action: 'wtd_promocart_check_popup_status', 
+        };
+
+
+        $.ajax({
+            url: wtd_promocart_popup_script.ajaxurl, 
+            type: 'POST',
+            data: data, 
+            success: function (response) {
+                if(response.success == true){  
+                    // set time out 2 seconds and show popup
+                    setTimeout(function () { 
+                        $('.wtd-promocart-popup').addClass('show'); 
+                    }, 2000);
+
+                }else{  
+                    // alert(response.message);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    
+    $(document).on('wc_fragments_refreshed wc_fragments_loaded removed_from_cart wc-blocks_added_to_cart wc-blocks_removed_from_cart updated_wc_div', function () {
+        showPopup();
+    });
+     
+    
 
 })(jQuery);
 

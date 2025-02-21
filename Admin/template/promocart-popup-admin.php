@@ -24,6 +24,9 @@ if ( class_exists( 'WooCommerce' ) ) {
 		'posts_per_page' => -1,
 	);
 	$products_query = new WP_Query( $args );
+	
+	
+	$currency = get_woocommerce_currency_symbol();
 
 	$products_list = array();
 	if ( $products_query->have_posts() ) {
@@ -37,6 +40,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 	wp_reset_postdata();
 } else {
 	$products_list = array();
+	$currency = 'USD';
 }
 
 ?>
@@ -111,13 +115,13 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 				<div class="wtd-popup-form-field total-amount-wrap <?php echo 'cart_total' == $cart_type ? 'active' : ''; ?>">
 					<!-- Cart money value/Number of cart items/Products in the cart -->
-					<label for="total_amount"><?php echo esc_html( __( 'Amount', 'promocart-popup' ) ); ?> </label>
+					<label for="total_amount"><?php echo esc_html( __( 'Amount', 'promocart-popup' ) ); ?>  ( <?php echo esc_html($currency); ?>)</label>
 					<!-- short desc -->   
 					<p><?php echo esc_html( __( 'Enter the desired amount of cart to show the popup.', 'promocart-popup' ) ); ?></p>
 					<!-- input field -->
-					  
 					<input type="number" id="total_amount" name="wtd_promocart_popup_settings[total_amount]" value="<?php echo esc_attr( $total_amount ); ?>" >
 					 
+					
 					 
 				</div>
 				<!-- Single From Field -->

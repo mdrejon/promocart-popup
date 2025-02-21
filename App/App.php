@@ -23,11 +23,24 @@ class App {
 	 */
 	private function __construct() {
 
+		// apply discount action.
+		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'wtd_promocart_apply_discount_callback' ), 10, 1 );
+ 
+
+		// Check popup visible status.
+		if(false == self::check_visible_status()) {
+			return;
+		}
+		
 		// load scripts and styles.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// Add popup into footer.
 		add_action( 'wp_footer', array( $this, 'wtd_promocart_popup' ) );
+
+		// Close popup ajax action.
+		add_action( 'wp_ajax_wtd_promocart_close_popup', array( $this, 'wtd_promocart_close_popup_callback' ) );
+        add_action( 'wp_ajax_nopriv_wtd_promocart_close_popup', array( $this, 'wtd_promocart_close_popup_callback' ) );
 
 		// Ajax apply coupon action.
 		add_action( 'wp_ajax_wtd_promocart_apply_coupon', array( $this, 'wtd_promocart_apply_coupon_callback' ) );
@@ -37,9 +50,7 @@ class App {
 		add_action( 'wp_ajax_wtd_promocart_check_popup_status', array( $this, 'wtd_promocart_check_popup_status_callback' ) );
 		add_action( 'wp_ajax_nopriv_wtd_promocart_check_popup_status', array( $this, 'wtd_promocart_check_popup_status_callback' ) );
 
-		// apply discount action.
-		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'wtd_promocart_apply_discount_callback' ), 10, 1 );
- 
+		
 	}
 
 	/**
@@ -131,6 +142,9 @@ class App {
 		if ( ! WC()->session->get( 'wtd_promocart_discount_applied' ) ) {
 			WC()->session->set( 'wtd_promocart_discount_applied', true );
 
+			// Update Popup status.
+			self::update_popup_status('applied' );
+
 			// Recalculate cart totals.
 			WC()->cart->calculate_totals();
 
@@ -182,7 +196,67 @@ class App {
 		
 	}
 
-  
+	/**
+	 * Update Popup status.
+	 * 
+	 */
+	public function wtd_promocart_close_popup_callback(){
+		$response['success'] = false;
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wtd_promocart_popup_nonce' ) ) {
+			$response['message'] = __( 'Invalid nonce', 'promocart-popup' );
+			wp_send_json( $response );
+			return;
+		}
+
+		// Update Popup status.
+		self::update_popup_status('closed' );
+
+		$response['success'] = true;
+		wp_send_json( $response );
+
+	}
+
+	/**
+	 * Update Popup status.
+	 * 
+	 */
+	public static function update_popup_status( $status ) {
+        // if current user logged in and has user id then update the status.
+		if ( is_user_logged_in() ) {
+            update_user_meta( get_current_user_id(), 'wtd_promocart_popup_status', $status );
+        }else {
+			// if not logged in then set it into the cookie for 7 days.
+			$cookie_name  = 'wtd_promocart_popup_status';
+            $cookie_value = $status;
+            $expiration   = time() + ( 7 * 24 * 60 * 60 );
+            setcookie( $cookie_name, $cookie_value, $expiration, '/' );
+		}
+    }
+
+
+	/**
+	 * Update Popup status.
+	 * 
+	 */
+	public static function check_visible_status() {
+		
+		// if already applied or closed return false.
+		if(is_user_logged_in()) {
+			$user_status = get_user_meta( get_current_user_id(), 'wtd_promocart_popup_status', true );
+            if ( 'applied' === $user_status || 'closed' === $user_status ) {
+                return false;
+            }
+        } else {
+			$cookie_name  = 'wtd_promocart_popup_status';
+			$cookie_value = isset( $_COOKIE[ $cookie_name ] )? $_COOKIE[ $cookie_name ] : '';
+			if ( 'applied' === $cookie_value || 'closed' === $cookie_value ) {
+                return false;
+            }
+		}
+
+		return true;
+
+	}
 
 	/**
 	 * Check discount popup visibility.
