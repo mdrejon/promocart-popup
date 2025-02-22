@@ -62,7 +62,7 @@ class App {
 		// Register admin styles.
 		wp_enqueue_style( 'wtd-promocart-popup-app-style', WTD_PROMOCART_POPUP_URL . '/Assets/app/css/wtd-promocart-popup-app.css', array(), WTD_PROMOCART_POPUP_VERSION, 'all' );
 		// Register admin scripts.
-		wp_enqueue_script( 'wtd-promocart-popup-app-script', WTD_PROMOCART_POPUP_URL . '/Assets/app/js/wtd-promocart-popup-app.js', array( 'jquery', 'wc-cart-fragments' ), WTD_PROMOCART_POPUP_VERSION, true );
+		wp_enqueue_script( 'wtd-promocart-popup-app-script', WTD_PROMOCART_POPUP_URL . '/Assets/app/js/wtd-promocart-popup-app.js', array( 'jquery', 'wc-cart-fragments', 'wp-hooks' ), WTD_PROMOCART_POPUP_VERSION, true );
 
 		// localize script with data.
 		$data = array(
@@ -327,12 +327,16 @@ class App {
         if ( WC()->session->get( 'wtd_promocart_discount_applied' ) == true ) { 
 			$response['success'] = false;
 			$response['message'] = 'Popup is not visible.';
+			
 		}elseif ( true === self::check_popup_status() ) {
+			
 			$response['success'] = true;
 			$response['message'] = 'Popup is visible.';
 		} else {
 			$response['success'] = false;
 			$response['message'] = 'Popup is not visible.';
+			
+
 		}
 
 		wp_send_json( $response );

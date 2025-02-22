@@ -59,8 +59,10 @@
                         // add a link to checkout button 
                         $('.wtd-promocart-popup-inner .wtd-apply-cuppon').html(wtd_promocart_popup_script.coupon_applied);
                         if(response.url){
+                            // redirect to response url
+                            window.location.href = response.url; // Redirect to the URL in the response
 
-                            $('.wtd-promocart-popup-inner .wtd-promocart-popup-content').append('<a href="' + response.url + '"  class="wtd-checkout-button">' + wtd_promocart_popup_script.checkout_button_text + '</a>');
+
                         }
                     }else{   
                         // remove preloader
@@ -80,7 +82,8 @@
 
         }); 
 
-       
+        
+
  
 	}) 
 
@@ -115,8 +118,26 @@
         });
     }
     
-    $(document).on('wc_fragments_refreshed wc_fragments_loaded removed_from_cart wc-blocks_added_to_cart wc-blocks_removed_from_cart updated_wc_div', function () {
+    $(document).on('wc_fragments_refreshed wc_fragments_loaded wc-blocks_removed_from_cart wc-blocks_added_to_cart', function () {
         showPopup();
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+    
+        wp.hooks.addAction('experimental__woocommerce_blocks-cart-remove-item', 'wc-blocks', function (data) { 
+            // set time  after 1 second and show popup
+            setTimeout(function () { 
+                showPopup();
+            }, 1000);
+        });
+        wp.hooks.addAction('experimental__woocommerce_blocks-cart-set-item-quantity', 'wc-blocks', function (data) { 
+            // set time  after 1 second and show popup
+            setTimeout(function () { 
+                showPopup();
+            }, 1000);
+        });
+    
+       
     });
      
     
