@@ -31,6 +31,14 @@
                 $('.total-amount-wrap').removeClass('active');  
 
             }
+            // if cart type is empty
+            if(cartType == '') {
+                $('.condition-wrap').removeClass('active'); 
+                $('.total-item-wrap').removeClass('active');
+                $('.total-amount-wrap').removeClass('active');  
+                $('.products-wrap').removeClass('active'); 
+
+            }
         });
 
         // Loade select 2
@@ -44,6 +52,79 @@
             e.preventDefault();   
             $this = $(this);
             var data  = new FormData(this);  
+
+            
+            var enable_status = $this.find('#enable_status');
+            var error = false;
+            var errorData = {};
+            var cart_type = $this.find('#cart_type').val();
+            var enable_status = $this.find('#enable_status');
+            // checkbox checkeked value  
+            var condition = $this.find('#condition').val();
+            var total_amount = $this.find('#total_amount').val();
+            var total_items = $this.find('#total_items').val();
+            var specific_products = $this.find('#specific_products').val();
+
+            // first remove all error class and error message
+            $this.find('.error-message').remove();
+            $this.find('.notice').remove();
+            $this.find('.error').removeClass('error'); 
+            if(cart_type == ''){
+                error = true;
+                errorData['cart_type'] = 'Please select cart type';
+            }
+            if('cart_total' == cart_type || 'cart_total_items' == cart_type) {
+                if(condition == ''){
+                    error = true;
+                    errorData['condition'] = 'Please select condition';
+                }
+            }
+            if('cart_total' == cart_type ) {
+                if(total_amount == ''){
+                    error = true;
+                    errorData['total_amount'] = 'Please select total amount';
+                }
+            }
+            if('cart_total_items' == cart_type ) {
+                if(total_items == ''){
+                    error = true;
+                    errorData['total_items'] = 'Please select total items';
+                }
+            }
+            if('specific_products' == cart_type) {
+                if(specific_products.length == 0){
+                    error = true;
+                    errorData['specific_products'] = 'Please select specific products';
+                }
+            } 
+          
+            if(!enable_status.is(':checked')){
+                error = false;
+            }
+            
+            if(error) {
+                  // show error message  and add class every field using id
+                $.each(errorData, function(id, error) {
+                    var errorText = '<span id="' + id + '_error" class="error-message"> '+ error + '</span>';
+                    if ($('#' + id).parent().find('.select2-selection').length) {
+                        $('#' + id).parent().find('.select2-selection').addClass('error');
+                    } else {
+                        $('#' + id).addClass('error');
+                    }
+                    $('#'+id).parent().append(errorText);
+                });
+                
+                // remove error class and error message after 3 seconds
+                setTimeout(function() {
+                    $.each(errorData, function(id, error) {
+                        $('#'+id).removeClass('error');
+                        $('#'+id+'_error').text('');
+                    });
+                }, 3000);
+                return false;
+            }
+
+
             // remove html 
             $this.find('.wtd-promocart-settings-submit svg').remove();
             $this.find('.wtd-promocart-settings-submit').append(preloader);
@@ -58,16 +139,19 @@
                 contentType: false,
                 success: function (response) {
                     if(response.success){  
-
-                        $this.find('.wtd-promocart-settings-submit').html('');
-                        $this.find('.wtd-promocart-settings-submit').append(wtd_promocart_popup_admin.setting_saved); 
+                        let notice = '<div class="notice notice-success "><p>' + response.message + '</p></div>';
+                        $this.find('.wtd-promocart-settings-submit svg').remove();
+                        $this.find('.wtd-promocart-settings-submit').parent().append(notice); 
                         // after 2 seconds remove notice  
+                        setTimeout(function() {
+                            $this.find('.wtd-promocart-settings-submit').parent().find('.notice').remove(); 
+                        }, 2000);
 
-                    }else{  
-                        let fieldErrors = response.fieldErrors;
-
+                    }else{   
+                        let notice = '<div class="notice notice-error "><p>' + response.message + '</p></div>'; 
                         $this.find('.wtd-promocart-settings-submit svg').remove(); 
-                        alert(response.message);
+                        $this.find('.wtd-promocart-settings-submit').parent().append(notice); 
+                        // after 2 seconds remove notice   
                     }
                 },
                 error: function (error) {

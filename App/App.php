@@ -36,7 +36,7 @@ class App {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// Add popup into footer.
-		add_action( 'wp_footer', array( $this, 'wtd_promocart_popup' ) );
+		// add_action( 'wp_footer', array( $this, 'wtd_promocart_popup' ) );
 
 		// Close popup ajax action.
 		add_action( 'wp_ajax_wtd_promocart_close_popup', array( $this, 'wtd_promocart_close_popup_callback' ) );
@@ -114,7 +114,7 @@ class App {
 			'stroke-width' => true,
 		);
 
-		echo wp_kses( $output, $allowed_html );
+		return wp_kses( $output, $allowed_html );
 	}
 
 	/**
@@ -332,11 +332,11 @@ class App {
 			
 			$response['success'] = true;
 			$response['message'] = 'Popup is visible.';
+			$response['popup'] = $this->wtd_promocart_popup();
+
 		} else {
 			$response['success'] = false;
-			$response['message'] = 'Popup is not visible.';
-			
-
+			$response['message'] = 'Popup is not visible.'; 
 		}
 
 		wp_send_json( $response );
