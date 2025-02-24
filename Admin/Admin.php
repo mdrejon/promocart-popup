@@ -55,7 +55,14 @@ class Admin {
 		// Localized script for admin.
 		$localize_script_array = array(
 			'ajaxurl'       => admin_url( 'admin-ajax.php' ),
-			'setting_saved' => __( 'Settings Saved', 'promocart-popup' ),
+			'trans_string' => array(
+				'Please select cart type' => __( 'Please select cart type', 'promocart-popup' ),
+				'Please select condition' => __( 'Please select condition', 'promocart-popup' ),
+				'Please select total amount' => __( 'Please select total amount', 'promocart-popup' ),
+				'Please select total items' => __( 'Please select total items', 'promocart-popup' ),
+				'Please select specific products' => __( 'Please select specific products', 'promocart-popup' ),
+				'string' => __( 'string', 'promocart-popup' ),
+			),
 		);
 		wp_localize_script( 'wtd-promocart-popup-admin-script', 'wtd_promocart_popup_admin', $localize_script_array );
 	}

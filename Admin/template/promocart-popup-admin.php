@@ -79,7 +79,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 				<div class="wtd-popup-form-field">
 					<!-- Cart money value/Number of cart items/Products in the cart -->
-					<label for="cart_type"><?php echo esc_html( __( 'Cart Type', 'promocart-popup' ) ); ?></label>
+					<label for="cart_type"><?php echo esc_html( __( 'Cart Type', 'promocart-popup' ) ); ?> *</label>
 					<!-- short desc --> 
 					<p><?php echo esc_html( __( 'Choose the type of total amount of cart, number of cart items or specific product.', 'promocart-popup' ) ); ?></p>
 					<!-- markup for swicher -->
@@ -96,7 +96,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 				<div class="wtd-popup-form-field condition-wrap <?php echo 'cart_total' == $cart_type || 'cart_total_items' == $cart_type ? 'active' : ''; ?>">
 					<!-- Cart money value/Number of cart items/Products in the cart -->
-					<label for="condition"><?php echo esc_html( __( 'Condition', 'promocart-popup' ) ); ?> </label>
+					<label for="condition"><?php echo esc_html( __( 'Condition', 'promocart-popup' ) ); ?> *</label>
 					<!-- short desc -->  
 					<p><?php echo esc_html( __( 'Choose the condition to show the popup.', 'promocart-popup' ) ); ?></p>
 					<!-- markup for swicher -->
@@ -115,7 +115,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 				<div class="wtd-popup-form-field total-amount-wrap <?php echo 'cart_total' == $cart_type ? 'active' : ''; ?>">
 					<!-- Cart money value/Number of cart items/Products in the cart -->
-					<label for="total_amount"><?php echo esc_html( __( 'Amount', 'promocart-popup' ) ); ?>  ( <?php echo esc_html($currency); ?>)</label>
+					<label for="total_amount"><?php echo esc_html( __( 'Amount', 'promocart-popup' ) ); ?>  ( <?php echo esc_html($currency); ?>) *</label>
 					<!-- short desc -->   
 					<p><?php echo esc_html( __( 'Enter the desired amount of cart to show the popup.', 'promocart-popup' ) ); ?></p>
 					<!-- input field -->
@@ -127,9 +127,9 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 
 				<!-- Single From Field -->
-				<div class="wtd-popup-form-field total-item-wrap <?php echo 'cart_total_items' == $cart_type ? 'active' : ''; ?>">
+				<div class="wtd-popup-form-field total-item-wrap <?php echo 'cart_total_items' == $cart_type ? 'active' : ''; ?>" >
 					<!-- Cart money value/Number of cart items/Products in the cart -->
-					<label for="total_items"><?php echo esc_html( __( 'Items', 'promocart-popup' ) ); ?> </label>
+					<label for="total_items"><?php echo esc_html( __( 'Items', 'promocart-popup' ) ); ?> *</label>
 					<!-- short desc -->   
 					<p><?php echo esc_html( __( 'Enter the desired total cart items to show the popup.', 'promocart-popup' ) ); ?></p>
 					<!-- input field -->
@@ -142,7 +142,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 				<div class="wtd-popup-form-field products-wrap <?php echo 'specific_products' == $cart_type ? 'active' : ''; ?>" >
 					<!-- Cart money value/Number of cart items/Products in the cart -->
-					<label for="specific_products"> <?php echo esc_html( __( 'Select Products', 'promocart-popup' ) ); ?></label>
+					<label for="specific_products"> <?php echo esc_html( __( 'Select Products', 'promocart-popup' ) ); ?> *</label>
 					<!-- short desc --> 
 					<p><?php echo esc_html( __( 'Select the products you want to show the popup.', 'promocart-popup' ) ); ?></p>
 					<!-- markup for swicher -->
@@ -163,7 +163,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				<!-- Single From Field -->
 				<div class="wtd-popup-form-field">
 					<!-- button submit -->
-					<button type="submit" class=" wtd-promocart-settings-submit" name="wtd_promocart_popup_save_settings">Save Settings</button>
+					<button type="submit" class=" wtd-promocart-settings-submit" name="wtd_promocart_popup_save_settings"><?php echo esc_html( __( 'Save Settings', 'promocart-popup' ) ); ?></button>
 					<!-- button submit -->
 				</div>
 				<!-- Single From Field -->

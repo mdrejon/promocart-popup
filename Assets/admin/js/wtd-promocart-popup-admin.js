@@ -71,30 +71,30 @@
             $this.find('.error').removeClass('error'); 
             if(cart_type == ''){
                 error = true;
-                errorData['cart_type'] = 'Please select cart type';
+                errorData['cart_type'] = wtd_promocart_popup_admin.trans_string['Please select cart type'];
             }
             if('cart_total' == cart_type || 'cart_total_items' == cart_type) {
                 if(condition == ''){
                     error = true;
-                    errorData['condition'] = 'Please select condition';
+                    errorData['condition'] = wtd_promocart_popup_admin.trans_string['Please select condition'];
                 }
             }
             if('cart_total' == cart_type ) {
                 if(total_amount == ''){
                     error = true;
-                    errorData['total_amount'] = 'Please select total amount';
+                    errorData['total_amount'] = wtd_promocart_popup_admin.trans_string['Please select total amount'];
                 }
             }
             if('cart_total_items' == cart_type ) {
                 if(total_items == ''){
                     error = true;
-                    errorData['total_items'] = 'Please select total items';
+                    errorData['total_items'] = wtd_promocart_popup_admin.trans_string['Please select total items'];
                 }
             }
             if('specific_products' == cart_type) {
                 if(specific_products.length == 0){
                     error = true;
-                    errorData['specific_products'] = 'Please select specific products';
+                    errorData['specific_products'] = wtd_promocart_popup_admin.trans_string['Please select specific products'];
                 }
             } 
           
@@ -116,8 +116,12 @@
                 
                 // remove error class and error message after 3 seconds
                 setTimeout(function() {
-                    $.each(errorData, function(id, error) {
-                        $('#'+id).removeClass('error');
+                    $.each(errorData, function(id, error) { 
+                        if ($('#' + id).parent().find('.select2-selection').length) {
+                            $('#' + id).parent().find('.select2-selection').removeClass('error');
+                        } else {
+                            $('#' + id).removeClass('error');
+                        }
                         $('#'+id+'_error').text('');
                     });
                 }, 3000);
