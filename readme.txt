@@ -4,6 +4,7 @@ Tags: WooCommerce, popup, cart targeting, discount, coupon
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,7 +36,11 @@ Responsive design with CSS3 animations.
 6. Go to Plugin Settings (Dashboard -> PromoCart Popup).
 
 == Changelog ==
-= 1.0.0 =
 
+= 1.0.1 = 
+Added: Settings page validation.
+improved: Popup loading.
+
+= 1.0.0 = 
 Initial release.
 

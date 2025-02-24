@@ -68,9 +68,10 @@
     border-color: #AC0C22 !important; 
 }
 .wtd-popup-form-field .error-message{
-    color: #AC0C22;
+    color: #AC0C22; 
     font-size: 12px;
-    display: inline-block;
+    display: inline-block; 
+    width: 100%;
 }
 
 

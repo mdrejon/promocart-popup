@@ -5,7 +5,7 @@
  * Plugin Name: PromoCart Popup
  * Plugin URI:  https://github.com/mdrejon/promocart-popup
  * Description: Displays a targeted popup with a 15% discount coupon based on cart conditions.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Sydur Rahman
  * Author URI:  https://github.com/mdrejon/
  * License:     GPLv2 or later
@@ -45,7 +45,7 @@ class WTD_promocart_Popup {
 		}
 
 		// define constants.
-		define( 'WTD_PROMOCART_POPUP_VERSION', '1.0.0' );
+		define( 'WTD_PROMOCART_POPUP_VERSION', '1.0.1' );
 		define( 'WTD_PROMOCART_POPUP_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'WTD_PROMOCART_POPUP_URL', plugin_dir_url( __FILE__ ) );
 
